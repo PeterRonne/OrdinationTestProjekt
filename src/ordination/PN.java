@@ -40,8 +40,11 @@ public class PN extends Ordination {
     }
 
     public double doegnDosis() {
-        int dageMellem = (int) ChronoUnit.DAYS.between(ordinationer.getFirst(), ordinationer.getLast()) + 1;
-        double doegnDosis = (getAntalGangeGivet() * antalEnheder) / dageMellem;
+        double doegnDosis = 0;
+        if (!ordinationer.isEmpty()) {
+            int dageMellem = (int) ordinationer.getLast().toEpochDay() - (int) ordinationer.getFirst().toEpochDay();
+            doegnDosis = (getAntalGangeGivet() * antalEnheder) / dageMellem;
+        }
         return doegnDosis;
     }
 
