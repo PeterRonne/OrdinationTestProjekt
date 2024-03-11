@@ -18,6 +18,12 @@ public class DagligFast extends Ordination{
         doser[3] = new Dosis(LocalTime.of(22,00,00), nat);
     }
 
+    public Dosis[] getDoser() {
+        Dosis[] doserCopy = new Dosis[4];
+        doserCopy = this.doser;
+        return doserCopy;
+    }
+
     @Override
     public double samletDosis() {
         return doegnDosis() * super.antalDage();
