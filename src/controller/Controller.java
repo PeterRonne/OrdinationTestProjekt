@@ -97,6 +97,10 @@ public class Controller {
      */
     public void ordinationPNAnvendt(PN ordination, LocalDate dato) {
         // TODO
+        if (!ordination.erIndenForGyldigPeriode(dato)) {
+            throw new IllegalArgumentException("Datoen er ikke indenfor ordinationens gyldighedsperiode");
+        }
+        ordination.tilføjOrdinationsDato(dato);
     }
 
     /**
