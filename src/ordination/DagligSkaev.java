@@ -1,5 +1,6 @@
 package ordination;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -7,7 +8,8 @@ public class DagligSkaev extends Ordination{
 
     ArrayList<Dosis> doser;
 
-    public DagligSkaev() {
+    public DagligSkaev(LocalDate startDen, LocalDate slutDen, Laegemiddel laegemiddel) {
+        super(startDen, slutDen, laegemiddel);
         this.doser = new ArrayList<>();
     }
 
@@ -37,6 +39,6 @@ public class DagligSkaev extends Ordination{
 
     @Override
     public String getType() {
-        return super.laegemiddel.getEnhed();
+        return "DagligSkæv";
     }
 }

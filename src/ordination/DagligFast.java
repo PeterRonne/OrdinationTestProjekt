@@ -7,6 +7,10 @@ import java.util.ArrayList;
 public class DagligFast extends Ordination{
     private Dosis[] doser = new Dosis[4];
 
+    public DagligFast(LocalDate startDen, LocalDate slutDen, Laegemiddel laegemiddel) {
+        super(startDen, slutDen, laegemiddel);
+    }
+
     public void opretDosis (double morgen, double middag, double aften, double nat) {
         doser[0] = new Dosis(LocalTime.of(7,00,00), morgen);
         doser[1] = new Dosis(LocalTime.of(12,00,00), middag);
@@ -30,6 +34,6 @@ public class DagligFast extends Ordination{
 
     @Override
     public String getType() {
-        return super.laegemiddel.getEnhed();
+        return "DagligFast";
     }
 }
