@@ -26,6 +26,8 @@ public class Controller {
 		return controller;
 	}
 
+	//Halløj
+
 	public static Controller getTestController() {
 		return new Controller();
 	}
