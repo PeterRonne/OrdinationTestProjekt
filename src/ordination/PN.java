@@ -32,7 +32,7 @@ public class PN extends Ordination {
     }
 
     public double doegnDosis() {
-        int dageMellem = (int) ChronoUnit.DAYS.between(super.getStartDen() ,super.getSlutDen());
+        int dageMellem = (int) ChronoUnit.DAYS.between(super.getStartDen() ,super.getSlutDen()) + 1;
         double doegnDosis = (getAntalGangeGivet() * antalEnheder) / dageMellem;
         return doegnDosis;
     }
