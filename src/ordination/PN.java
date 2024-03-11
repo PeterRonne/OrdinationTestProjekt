@@ -2,9 +2,15 @@ package ordination;
 
 import java.time.LocalDate;
 
-public class PN {
+public class PN extends Ordination {
 
     private double antalEnheder;
+    private String type;
+
+    public PN(double antalEnheder, String type) {
+        this.antalEnheder = antalEnheder;
+        this.type = type;
+    }
 
     /**
      * Registrerer at der er givet en dosis paa dagen givesDen
@@ -13,14 +19,21 @@ public class PN {
      * @param givesDen
      * @return
      */
+
     public boolean givDosis(LocalDate givesDen) {
         // TODO
-        return false;   
+        return false;
     }
 
+//(antal gange ordinationen er anvendt * antal enheder) / (antal dage mellem første og sidste givning)
     public double doegnDosis() {
         // TODO
         return 0.0;
+    }
+
+    @Override
+    public String getType() {
+        return null;
     }
 
 
