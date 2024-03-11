@@ -9,10 +9,12 @@ public class PN extends Ordination {
 
     private final List<LocalDate> ordinationer = new ArrayList<>();
     private double antalEnheder;
+    private Laegemiddel laegemiddel;
 
     public PN(LocalDate startDen, LocalDate slutDen, Laegemiddel laegemiddel, double antalEnheder) {
         super(startDen, slutDen, laegemiddel);
         this.antalEnheder = antalEnheder;
+        this.laegemiddel = laegemiddel;
     }
 
     /**
@@ -62,4 +64,11 @@ public class PN extends Ordination {
         return antalEnheder;
     }
 
+    public List<LocalDate> getOrdinationer() {
+        return new ArrayList<>(ordinationer);
+    }
+
+    public Laegemiddel getLaegemiddel() {
+        return laegemiddel;
+    }
 }
