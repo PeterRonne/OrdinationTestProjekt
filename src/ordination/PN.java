@@ -43,8 +43,7 @@ public class PN extends Ordination {
 
     @Override
     public String getType() {
-        // TODO
-        return null;
+        return "PN";
     }
 
     public double samletDosis() {
