@@ -22,7 +22,6 @@ public class DagligSkaev extends Ordination{
         for (Dosis dose : doser) {
             sum += dose.getAntal();
         }
-
         return sum * super.antalDage();
     }
 
@@ -38,7 +37,6 @@ public class DagligSkaev extends Ordination{
 
     @Override
     public String getType() {
-        // TODO afhængig af link mellem Ordination og Lægemiddel
-        return null;
+        return super.laegemiddel.getEnhed();
     }
 }
