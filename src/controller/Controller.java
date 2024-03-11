@@ -108,8 +108,18 @@ public class Controller {
      * Pre: patient og lægemiddel er ikke null
      */
     public double anbefaletDosisPrDoegn(Patient patient, Laegemiddel laegemiddel) {
-        //TODO
-        return 0;
+        double patientVægt = patient.getVaegt();
+        double anbefaletDosisPrDøgn = 0;
+        if(patientVægt < 25) {
+            anbefaletDosisPrDøgn = patientVægt * laegemiddel.getEnhedPrKgPrDoegnLet();
+        }
+        else if (patientVægt > 120) {
+            anbefaletDosisPrDøgn = patientVægt * laegemiddel.getEnhedPrKgPrDoegnNormal();
+        }
+        else {
+            anbefaletDosisPrDøgn = patientVægt * laegemiddel.getEnhedPrKgPrDoegnTung();
+        }
+        return anbefaletDosisPrDøgn;
     }
 
     /**
