@@ -4,11 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-import ordination.DagligFast;
-import ordination.DagligSkaev;
-import ordination.Laegemiddel;
-import ordination.PN;
-import ordination.Patient;
+import ordination.*;
 import storage.Storage;
 
 public class Controller {
@@ -99,6 +95,10 @@ public class Controller {
      */
     public void ordinationPNAnvendt(PN ordination, LocalDate dato) {
         // TODO
+        if (!ordination.erIndenForGyldigPeriode(dato)) {
+            throw new IllegalArgumentException("Datoen er ikke indenfor ordinationens gyldighedsperiode");
+        }
+        ordination.tilføjOrdinationsDato(dato);
     }
 
     /**

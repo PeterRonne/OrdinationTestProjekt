@@ -27,7 +27,7 @@ public class PN extends Ordination {
      */
 
     public boolean givDosis(LocalDate givesDen) {
-        if (givesDen.isAfter(super.getStartDen()) && givesDen.isBefore(super.getSlutDen())) {
+        if (erIndenForGyldigPeriode(givesDen)) {
             ordinationer.add(givesDen);
             return true;
         } else {
@@ -35,10 +35,18 @@ public class PN extends Ordination {
         }
     }
 
+    public void tilføjOrdinationsDato(LocalDate dato) {
+        ordinationer.add(dato);
+    }
+
     public double doegnDosis() {
         int dageMellem = (int) ChronoUnit.DAYS.between(super.getStartDen() ,super.getSlutDen()) + 1;
         double doegnDosis = (getAntalGangeGivet() * antalEnheder) / dageMellem;
         return doegnDosis;
+    }
+
+    public boolean erIndenForGyldigPeriode(LocalDate givesDen) {
+        return givesDen.isAfter(super.getStartDen()) && givesDen.isBefore(super.getSlutDen());
     }
 
     @Override
@@ -70,4 +78,5 @@ public class PN extends Ordination {
     public Laegemiddel getLaegemiddel() {
         return laegemiddel;
     }
+
 }
