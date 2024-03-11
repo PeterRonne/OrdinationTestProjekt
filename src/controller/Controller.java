@@ -2,13 +2,11 @@ package controller;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import ordination.DagligFast;
-import ordination.DagligSkaev;
-import ordination.Laegemiddel;
-import ordination.PN;
-import ordination.Patient;
+import ordination.*;
 import storage.Storage;
 
 public class Controller {
@@ -128,8 +126,23 @@ public class Controller {
      * Pre: laegemiddel er ikke null
      */
     public int antalOrdinationerPrVægtPrLægemiddel(double vægtStart, double vægtSlut, Laegemiddel laegemiddel) {
-        // TODO
-        return 0;
+        ArrayList<Ordination> ordinationArrayList = new ArrayList<>();
+        int ordinationsCounter = 0;
+
+        // Løber alle patienter fra Storage igennem, hvis de er korrekt vægt, lægger alle deres ordinationer i arrayet
+        for (Patient patient : storage.getAllPatienter()) {
+            if (patient.getVaegt() > vægtStart && patient.getVaegt() < vægtSlut) {
+                ordinationArrayList.addAll(patient.getOrdinationer());
+            }
+        }
+        // Løber alle de vægt-korrekte ordinationer igennem, hvis de er det rigtige lægemiddel, counter++
+        for (Ordination ordination : ordinationArrayList) {
+            if (ordination.getLaegemiddel().equals(laegemiddel)) {
+                ordinationsCounter++;
+            }
+        }
+
+        return ordinationsCounter;
     }
 
     public List<Patient> getAllPatienter() {
