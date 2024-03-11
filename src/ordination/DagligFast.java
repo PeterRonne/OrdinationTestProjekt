@@ -30,7 +30,6 @@ public class DagligFast extends Ordination{
 
     @Override
     public String getType() {
-        //TODO
-        return null;
+        return super.laegemiddel.getEnhed();
     }
 }
