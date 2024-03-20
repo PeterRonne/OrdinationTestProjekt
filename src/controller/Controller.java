@@ -116,10 +116,10 @@ public class Controller {
             anbefaletDosisPrDøgn = patientVægt * laegemiddel.getEnhedPrKgPrDoegnLet();
         }
         else if (patientVægt > 120) {
-            anbefaletDosisPrDøgn = patientVægt * laegemiddel.getEnhedPrKgPrDoegnNormal();
+            anbefaletDosisPrDøgn = patientVægt * laegemiddel.getEnhedPrKgPrDoegnTung();
         }
         else {
-            anbefaletDosisPrDøgn = patientVægt * laegemiddel.getEnhedPrKgPrDoegnTung();
+            anbefaletDosisPrDøgn = patientVægt * laegemiddel.getEnhedPrKgPrDoegnNormal();
         }
         return anbefaletDosisPrDøgn;
     }
