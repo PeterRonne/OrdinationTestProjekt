@@ -49,7 +49,7 @@ public class PN extends Ordination {
     }
 
     public boolean erIndenForGyldigPeriode(LocalDate givesDen) {
-        return givesDen.isAfter(super.getStartDen()) && givesDen.isBefore(super.getSlutDen());
+        return givesDen.isAfter(super.getStartDen().minus(1, ChronoUnit.DAYS)) && givesDen.isBefore(super.getSlutDen().plus(1, ChronoUnit.DAYS));
     }
 
     @Override
