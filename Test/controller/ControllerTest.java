@@ -1,5 +1,6 @@
 package controller;
 
+import jdk.jfr.Name;
 import ordination.*;
 import org.junit.jupiter.api.Test;
 
@@ -92,10 +93,34 @@ class ControllerTest {
     }
 
     @Test
+    @Name("TC1 anbefaletDosisPrDoegn() vægt = 24 ")
     void anbefaletDosisPrDoegn() {
+        //Arrange
+        Controller controller = Controller.getController();
+        Patient patient = controller.opretPatient("123456-7890","Ole Olesen",24);
+        Laegemiddel leagemiddel = controller.opretLaegemiddel("Acetylsalicylsyre", 0.1,0.15,0.16, "styk");
+
+        double expected = 2.4;
+        //Act
+        double actual = controller.anbefaletDosisPrDoegn(patient, leagemiddel);
+
+        //Assert
+        assertEquals(expected,actual, 0.001);
     }
 
     @Test
-    void antalOrdinationerPrVægtPrLægemiddel() {
+    @Name("TC2 anbefaletDosisPrDoegn() vægt = 25 ")
+    void TC2anbefaletDosisPrDoegn() {
+        Controller controller = Controller.getController();
+        Patient patient = controller.opretPatient("123456-7890","Ole Olesen",25);
+        Laegemiddel leagemiddel = controller.opretLaegemiddel("Acetylsalicylsyre", 0.1,0.15,0.16, "styk");
+
+        double expected = 3.75;
+
+        double actual = controller.anbefaletDosisPrDoegn(patient, leagemiddel);
+
+        //Assert
+        assertEquals(expected,actual, 0.001);
     }
+
 }
