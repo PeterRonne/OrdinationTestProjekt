@@ -29,6 +29,19 @@ public class Dosis {
     }
 
     @Override
+    public boolean equals(Object other) {
+        Dosis castedOther = (Dosis) other;
+        boolean same = false;
+        double otherAntal = castedOther.getAntal();
+        LocalTime otherTime = castedOther.getTid();
+
+        if (tid.equals(otherTime) && antal == otherAntal) {
+            same = true;
+        }
+
+        return same;
+    }
+    @Override
     public String toString(){
         return "Kl: " + tid + "   antal:  " + antal;
     }
