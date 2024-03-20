@@ -1,9 +1,6 @@
 package controller;
 
-import ordination.DagligFast;
-import ordination.DagligSkaev;
-import ordination.Laegemiddel;
-import ordination.Patient;
+import ordination.*;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -15,6 +12,24 @@ class ControllerTest {
 
     @Test
     void opretPNOrdination() {
+        Controller controller = Controller.getTestController();
+        Patient patient = controller.opretPatient("123456-7890","Jens Jensen",60);
+        Laegemiddel laegemiddel = controller.opretLaegemiddel("Acetylsalicylsyre",0.1,0.15,0.16,"Styk");
+        LocalDate start = LocalDate.of(2024,03,18);
+        LocalDate slut  = LocalDate.of(2024,03,28);
+        int antalEnheder = 2;
+
+        // Act
+        PN pn = controller.opretPNOrdination(start,slut,patient,laegemiddel,antalEnheder);
+        LocalDate actualStart = pn.getStartDen();
+        LocalDate actualSlut = pn.getSlutDen();
+
+        // Assert
+        assertNotNull(pn);
+        assertNotNull(pn.getLaegemiddel());
+        assertTrue(patient.getOrdinationer().contains(pn));
+        assertEquals(start,actualStart);
+        assertEquals(slut,actualSlut);
     }
 
     @Test
