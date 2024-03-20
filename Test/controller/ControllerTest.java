@@ -88,14 +88,92 @@ class ControllerTest {
     }
 
     @Test
-    void ordinationPNAnvendt() {
+    void ordinationPNAnvendtTC1() {
+        // Arrange
+        Controller controller = Controller.getTestController();
+        Patient patient = controller.opretPatient("123456-7890","Ole Olesen",60);
+        Laegemiddel laegemiddel = controller.opretLaegemiddel("Paracetamol",1,1.5,2,"ml");
+        LocalDate start = LocalDate.of(2023,10,23);
+        LocalDate slut  = LocalDate.of(2023,10,30);
+        PN pn = controller.opretPNOrdination(start,slut,patient,laegemiddel,2);
+        int expectedSize = pn.getAntalGangeGivet() + 1;
+
+        // Act
+        controller.ordinationPNAnvendt(pn,LocalDate.of(2023,10,23));
+        int actualSize = pn.getAntalGangeGivet();
+        LocalDate actualDate = pn.getOrdinationer().getLast();
+        LocalDate expectedDate = LocalDate.of(2023,10,23);
+
+        // Assert
+        assertEquals(expectedSize,actualSize);
+        assertEquals(expectedDate,actualDate);
+
     }
 
     @Test
-    void anbefaletDosisPrDoegn() {
+    void ordinationPNAnvendtTC2() {
+        // Arrange
+        Controller controller = Controller.getTestController();
+        Patient patient = controller.opretPatient("123456-7890","Ole Olesen",60);
+        Laegemiddel laegemiddel = controller.opretLaegemiddel("Paracetamol",1,1.5,2,"ml");
+        LocalDate start = LocalDate.of(2023,10,23);
+        LocalDate slut  = LocalDate.of(2023,10,30);
+        PN pn = controller.opretPNOrdination(start,slut,patient,laegemiddel,2);
+        int expectedSize = pn.getAntalGangeGivet() + 1;
+
+        // Act
+        controller.ordinationPNAnvendt(pn,LocalDate.of(2023,10,27));
+        int actualSize = pn.getAntalGangeGivet();
+        LocalDate actualDate = pn.getOrdinationer().getLast();
+        LocalDate expectedDate = LocalDate.of(2023,10,27);
+
+        // Assert
+        assertEquals(expectedSize,actualSize);
+        assertEquals(expectedDate,actualDate);
+
+    }
+    @Test
+    void anbefaletDosisPrDoegnTC3() {
+        // Arrange
+        Controller controller = Controller.getTestController();
+        Patient patient = controller.opretPatient("123456-7890","Ole Olesen",72.5);
+        Laegemiddel laegemiddel = controller.opretLaegemiddel("Acetylsalicylsyre",0.1,0.15,0.16,"Styk");
+
+        // Act
+        double actual = controller.anbefaletDosisPrDoegn(patient,laegemiddel);
+        double expected = 10.875;
+
+        // Assert
+        assertEquals(expected,actual,0.0005);
     }
 
     @Test
-    void antalOrdinationerPrVægtPrLægemiddel() {
+    void anbefaletDosisPrDoegnTC4() {
+        // Arrange
+        Controller controller = Controller.getTestController();
+        Patient patient = controller.opretPatient("123456-7890","Ole Olesen",120);
+        Laegemiddel laegemiddel = controller.opretLaegemiddel("Acetylsalicylsyre",0.1,0.15,0.16,"Styk");
+
+        // Act
+        double actual = controller.anbefaletDosisPrDoegn(patient,laegemiddel);
+        double expected = 18;
+
+        // Assert
+        assertEquals(expected,actual,0.001);
     }
+    @Test
+    void anbefaletDosisPrDoegnTC5() {
+        // Arrange
+        Controller controller = Controller.getTestController();
+        Patient patient = controller.opretPatient("123456-7890","Ole Olesen",280);
+        Laegemiddel laegemiddel = controller.opretLaegemiddel("Acetylsalicylsyre",0.1,0.15,0.16,"Styk");
+
+        // Act
+        double actual = controller.anbefaletDosisPrDoegn(patient,laegemiddel);
+        double expected = 44.8;
+
+        // Assert
+        assertEquals(expected,actual,0.001);
+    }
+
 }
