@@ -42,7 +42,7 @@ public class PN extends Ordination {
     public double doegnDosis() {
         double doegnDosis = 0;
         if (!ordinationer.isEmpty()) {
-            int dageMellem = (int) ordinationer.getLast().toEpochDay() - (int) ordinationer.getFirst().toEpochDay();
+            int dageMellem = (int) ordinationer.getLast().toEpochDay() + 1 - (int) ordinationer.getFirst().toEpochDay();
             doegnDosis = (getAntalGangeGivet() * antalEnheder) / dageMellem;
         }
         return doegnDosis;
