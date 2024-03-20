@@ -45,43 +45,50 @@ public class Controller {
         return pn;
     }
 
-    /**
-     * Opretter og returnerer en DagligFast ordination. Hvis startDato er efter
-     * slutDato kastes en IllegalArgumentException og ordinationen oprettes ikke
-     * Pre: startDen, slutDen, patient og laegemiddel er ikke null
-     * Pre: margenAntal, middagAntal, aftanAntal, natAntal >= 0
-     */
-    public DagligFast opretDagligFastOrdination(LocalDate startDen, LocalDate slutDen, Patient patient, Laegemiddel laegemiddel, double morgenAntal, double middagAntal, double aftenAntal, double natAntal) {
-        if (startDen.isBefore(slutDen)) {
-            DagligFast nyDagligFast = new DagligFast(startDen, slutDen, laegemiddel);
-            nyDagligFast.opretDosis(morgenAntal, middagAntal, aftenAntal, natAntal);
-            patient.addOrdination(nyDagligFast);
-            return nyDagligFast;
-        } else {
-            throw new IllegalArgumentException("Start dato er efter slutdato");
-        }
-    }
+	/**
+	 * Opretter og returnerer en DagligFast ordination. Hvis startDato er efter
+	 * slutDato kastes en IllegalArgumentException og ordinationen oprettes ikke
+	 * Pre: startDen, slutDen, patient og laegemiddel er ikke null
+	 * Pre: margenAntal, middagAntal, aftanAntal, natAntal >= 0
+	 */
+	public DagligFast opretDagligFastOrdination(LocalDate startDen,
+			LocalDate slutDen, Patient patient, Laegemiddel laegemiddel,
+			double morgenAntal, double middagAntal, double aftenAntal,
+			double natAntal) {
+		if(startDen.isBefore(slutDen)) {
+			DagligFast nyDagligFast = new DagligFast(startDen, slutDen, laegemiddel);
+			nyDagligFast.opretDosis(morgenAntal, middagAntal, aftenAntal, natAntal);
+			patient.addOrdination(nyDagligFast);
+			return nyDagligFast;
+		}
+		else {
+			throw new IllegalArgumentException("Start dato er efter slutdato");
+		}
+	}
 
-    /**
-     * Opretter og returnerer en DagligSkæv ordination. Hvis startDato er efter
-     * slutDato kastes en IllegalArgumentException og ordinationen oprettes ikke.
-     * Hvis antallet af elementer i klokkeSlet og antalEnheder er forskellige kastes også en IllegalArgumentException.
-     * <p>
-     * Pre: startDen, slutDen, patient og laegemiddel er ikke null
-     * Pre: alle tal i antalEnheder > 0
-     */
-    public DagligSkaev opretDagligSkaevOrdination(LocalDate startDen, LocalDate slutDen, Patient patient, Laegemiddel laegemiddel, LocalTime[] klokkeSlet, double[] antalEnheder) {
-        DagligSkaev dagligSkaev = null;
-        if (startDen.isAfter(slutDen)) {
-            throw new IllegalArgumentException("Startdato efter slutdato");
-        } else {
-            dagligSkaev = new DagligSkaev(startDen, slutDen, laegemiddel);
-            for (int i = 0; i < klokkeSlet.length; i++) {
-                dagligSkaev.opretDosis(klokkeSlet[i], antalEnheder[i]);
-            }
-        }
-        return dagligSkaev;
-    }
+	/**
+	 * Opretter og returnerer en DagligSkæv ordination. Hvis startDato er efter
+	 * slutDato kastes en IllegalArgumentException og ordinationen oprettes ikke.
+	 * Hvis antallet af elementer i klokkeSlet og antalEnheder er forskellige kastes også en IllegalArgumentException.
+	 *
+	 * Pre: startDen, slutDen, patient og laegemiddel er ikke null
+	 * Pre: alle tal i antalEnheder > 0
+	 */
+	public DagligSkaev opretDagligSkaevOrdination(LocalDate startDen,
+			LocalDate slutDen, Patient patient, Laegemiddel laegemiddel,
+			LocalTime[] klokkeSlet, double[] antalEnheder) {
+		DagligSkaev dagligSkaev = null;
+		if (startDen.isAfter(slutDen)) {
+			throw new IllegalArgumentException("Startdato efter slutdato");
+		} else {
+			dagligSkaev = new DagligSkaev(startDen,slutDen,laegemiddel);
+			for (int i = 0; i < klokkeSlet.length; i++) {
+				dagligSkaev.opretDosis(klokkeSlet[i],antalEnheder[i]);
+			}
+            patient.addOrdination(dagligSkaev);
+		}
+		return dagligSkaev;
+	}
 
     /**
      * En dato for hvornår ordinationen anvendes tilføjes ordinationen. Hvis
@@ -105,11 +112,13 @@ public class Controller {
     public double anbefaletDosisPrDoegn(Patient patient, Laegemiddel laegemiddel) {
         double patientVægt = patient.getVaegt();
         double anbefaletDosisPrDøgn = 0;
-        if (patientVægt < 25) {
+        if(patientVægt < 25) {
             anbefaletDosisPrDøgn = patientVægt * laegemiddel.getEnhedPrKgPrDoegnLet();
-        } else if (patientVægt > 120) {
+        }
+        else if (patientVægt > 120) {
             anbefaletDosisPrDøgn = patientVægt * laegemiddel.getEnhedPrKgPrDoegnNormal();
-        } else {
+        }
+        else {
             anbefaletDosisPrDøgn = patientVægt * laegemiddel.getEnhedPrKgPrDoegnTung();
         }
         return anbefaletDosisPrDøgn;
