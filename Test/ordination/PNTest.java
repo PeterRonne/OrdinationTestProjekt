@@ -94,8 +94,8 @@ class PNTest {
         pn.givDosis(LocalDate.of(2023, 11, 6));
         pn.givDosis(LocalDate.of(2023, 11, 7));
         pn.givDosis(LocalDate.of(2023, 11, 8));
-        pn.givDosis(LocalDate.of(2023, 11, 9));
         pn.givDosis(LocalDate.of(2023, 11, 10));
+        pn.givDosis(LocalDate.of(2023, 11, 9));
 
         //Act
         double expected = 1.6;
@@ -173,8 +173,6 @@ class PNTest {
     void givDosisTC1() {
         //Assert
         assertFalse(pn.givDosis(LocalDate.of(2023, 10, 22)));
-
-
     }
 
     @Test

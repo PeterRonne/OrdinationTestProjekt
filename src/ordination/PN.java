@@ -42,14 +42,44 @@ public class PN extends Ordination {
     public double doegnDosis() {
         double doegnDosis = 0;
         if (!ordinationer.isEmpty()) {
-            int dageMellem = (int) ordinationer.getLast().toEpochDay() + 1 - (int) ordinationer.getFirst().toEpochDay();
+            int dageMellem = (int) senestGivet().toEpochDay() + 1 - (int) tidligstGivet().toEpochDay();
             doegnDosis = (getAntalGangeGivet() * antalEnheder) / dageMellem;
         }
         return doegnDosis;
     }
 
+
+    public LocalDate tidligstGivet() {
+        LocalDate earliestDate = null;
+        if (!ordinationer.isEmpty()) {
+            earliestDate = ordinationer.get(0);
+            for (LocalDate date : ordinationer) {
+                if (date.isBefore(earliestDate)) {
+                    earliestDate = date;
+                }
+            }
+        }
+        return earliestDate;
+    }
+
+    public LocalDate senestGivet() {
+        LocalDate latestDate = null;
+        if (!ordinationer.isEmpty()) {
+            latestDate = ordinationer.get(0);
+            for (LocalDate date : ordinationer) {
+                if (date.isAfter(latestDate)) {
+                    latestDate = date;
+                }
+            }
+        }
+        return latestDate;
+    }
+
     public boolean erIndenForGyldigPeriode(LocalDate givesDen) {
-        return givesDen.isAfter(super.getStartDen().minus(1, ChronoUnit.DAYS)) && givesDen.isBefore(super.getSlutDen().plus(1, ChronoUnit.DAYS));
+        if (givesDen == null)
+            return false;
+        else
+            return givesDen.isAfter(super.getStartDen().minusDays(1)) && givesDen.isBefore(super.getSlutDen().plusDays(1));
     }
 
     @Override
